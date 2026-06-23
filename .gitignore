@@ -1,0 +1,24 @@
+# Database config (never push credentials to Git)
+application/config/database.php
+application/config/email.php
+.user.ini
+
+# Uploaded user files (too large for git)
+uploads/
+temp/
+
+# Logs
+application/logs/*.log
+/home/mingrow/logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# Backups
+*.sql
+*.sql.gz
+*.bak
