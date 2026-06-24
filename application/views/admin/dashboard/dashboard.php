@@ -15,7 +15,6 @@ function parse_activity_item($description) {
     return ['class' => $class, 'text' => $desc];
 }
 ?>
-
 <style>
 /* ══════════════════════════════════════════════════════════════
    1. FONT & BASE
@@ -470,137 +469,69 @@ function parse_activity_item($description) {
 </style>
 
 <div id="wrapper">
-    <!-- ▸ Dashboard Options / Screen Options button (Perfex native) -->
     <div class="screen-options-area"></div>
     <div class="screen-options-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" style="width:18px;height:18px;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="tw-w-5 tw-h-5 ltr:tw-mr-1 rtl:tw-ml-1">
             <path stroke-linecap="round" stroke-linejoin="round"
                 d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
+
         <?= _l('dashboard_options'); ?>
     </div>
-
     <div class="content">
-        <!-- Alerts -->
         <div class="row">
             <?php $this->load->view('admin/includes/alerts'); ?>
-            <?php hooks()->do_action('before_start_render_dashboard_content'); ?>
-            <div class="clearfix"></div>
-        </div>
 
-        <!-- ═══════════════════════════════════════════
-             WELCOME HEADER
-        ════════════════════════════════════════════ -->
-        <div class="row" style="margin-bottom:22px;">
-            <div class="col-md-12" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-                <div>
-                    <h1 class="dash-welcome-title">
-                        <?php
-                        $hour = (int)date('G');
-                        $greet = $hour < 12 ? 'Good Morning' : ($hour < 17 ? 'Good Afternoon' : 'Good Evening');
-                        $full  = get_staff_full_name(get_staff_user_id());
-                        $first = explode(' ', $full)[0];
-                        echo e($greet . ', ' . $first) . ' 👋';
-                        ?>
-                    </h1>
-                    <p class="dash-welcome-sub">Here's what's happening in your business today.</p>
-                </div>
-                <div class="dash-date-btn">
-                    <i class="fa-regular fa-calendar"></i>
-                    <span><?php echo date('F 01') . ' – ' . date('F t, Y'); ?></span>
+            <?php hooks()->do_action('before_start_render_dashboard_content'); ?>
+
+            <div class="clearfix"></div>
+
+            <!-- ═══════════════════════════════════════════
+                 WELCOME HEADER
+            ════════════════════════════════════════════ -->
+            <div class="row" style="margin-bottom:22px;">
+                <div class="col-md-12" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+                    <div>
+                        <h1 class="dash-welcome-title">
+                            <?php
+                            $hour = (int)date('G');
+                            $greet = $hour < 12 ? 'Good Morning' : ($hour < 17 ? 'Good Afternoon' : 'Good Evening');
+                            $full  = get_staff_full_name(get_staff_user_id());
+                            $first = explode(' ', $full)[0];
+                            echo e($greet . ', ' . $first) . ' 👋';
+                            ?>
+                        </h1>
+                        <p class="dash-welcome-sub">Here's what's happening in your business today.</p>
+                    </div>
+                    <div class="dash-date-btn">
+                        <i class="fa-regular fa-calendar"></i>
+                        <span><?php echo date('F 01') . ' – ' . date('F t, Y'); ?></span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- ═══════════════════════════════════════════
-             ROW: TOP-12 WIDGETS  (top stats / stats overview)
-             Container key: "top-12"
-        ════════════════════════════════════════════ -->
-        <div class="row" data-container="top-12">
-            <?php render_dashboard_widgets('top-12'); ?>
-        </div>
+            <div class="col-md-12 mtop20" data-container="top-12">
+                <?php render_dashboard_widgets('top-12'); ?>
+            </div>
 
-        <!-- ═══════════════════════════════════════════
-             ROW: LEFT-8 WIDGETS + RIGHT-4 WIDGETS
-             (two-column drag-drop area)
-        ════════════════════════════════════════════ -->
-        <div class="row">
-            <!-- LEFT column (8 cols) -->
+            <?php hooks()->do_action('after_dashboard_top_container'); ?>
+
+            <div class="col-md-6" data-container="middle-left-6">
+                <?php render_dashboard_widgets('middle-left-6'); ?>
+            </div>
+            <div class="col-md-6" data-container="middle-right-6">
+                <?php render_dashboard_widgets('middle-right-6'); ?>
+            </div>
+
+            <?php hooks()->do_action('after_dashboard_half_container'); ?>
+
             <div class="col-md-8" data-container="left-8">
                 <?php render_dashboard_widgets('left-8'); ?>
             </div>
-
-            <!-- RIGHT column (4 cols) with sidebar widgets + AI card -->
-            <div class="col-md-4">
-                <!-- Sidebar drag-drop widgets -->
-                <div data-container="right-4">
-                    <?php render_dashboard_widgets('right-4'); ?>
-                </div>
-
-                <!-- Recent Activities (uses $activity_log from controller) -->
-                <div class="dash-card">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                        <h3 class="dash-card-title" style="margin-bottom:0!important;">
-                            <i class="fa-solid fa-list-check"></i> Recent Activities
-                        </h3>
-                        <a href="<?php echo admin_url('activities'); ?>" class="dash-view-all">View All</a>
-                    </div>
-                    <div class="mg-timeline">
-                        <?php
-                        $act_count = 0;
-                        if (isset($activity_log) && is_array($activity_log)) {
-                            foreach ($activity_log as $log) {
-                                if ($act_count >= 8) break;
-                                $parsed = parse_activity_item($log['description']);
-                                $act_count++;
-                        ?>
-                        <div class="mg-tl-item">
-                            <div class="mg-tl-dot <?php echo $parsed['class']; ?>"></div>
-                            <div class="mg-tl-time"><?php echo time_ago($log['date']); ?></div>
-                            <div class="mg-tl-text"><?php echo $parsed['text']; ?></div>
-                        </div>
-                        <?php
-                            }
-                        }
-                        if ($act_count === 0) {
-                            echo '<div class="text-center" style="color:#94A3B8;font-size:13px;padding:20px 0;">No recent activities yet.</div>';
-                        }
-                        ?>
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="dash-card">
-                    <h3 class="dash-card-title"><i class="fa fa-bolt"></i> Quick Actions</h3>
-                    <div class="quick-actions-grid">
-                        <a href="<?php echo admin_url('leads'); ?>" class="quick-action-btn">
-                            <div class="qa-icon"><i class="fa fa-bullseye"></i></div>
-                            <span>Create Lead</span>
-                        </a>
-                        <a href="<?php echo admin_url('invoices/invoice'); ?>" class="quick-action-btn">
-                            <div class="qa-icon"><i class="fa-regular fa-file-lines"></i></div>
-                            <span>New Invoice</span>
-                        </a>
-                        <a href="<?php echo admin_url('clients/client'); ?>" class="quick-action-btn">
-                            <div class="qa-icon"><i class="fa fa-user-plus"></i></div>
-                            <span>Add Client</span>
-                        </a>
-                        <a href="<?php echo admin_url('projects/project'); ?>" class="quick-action-btn">
-                            <div class="qa-icon"><i class="fa-solid fa-chart-gantt"></i></div>
-                            <span>New Project</span>
-                        </a>
-                        <a href="<?php echo admin_url('tasks'); ?>" class="quick-action-btn">
-                            <div class="qa-icon"><i class="fa fa-tasks"></i></div>
-                            <span>Add Task</span>
-                        </a>
-                        <a href="<?php echo admin_url('tickets/open_ticket'); ?>" class="quick-action-btn">
-                            <div class="qa-icon"><i class="fa-regular fa-life-ring"></i></div>
-                            <span>Open Ticket</span>
-                        </a>
-                    </div>
-                </div>
+            <div class="col-md-4" data-container="right-4">
+                <?php render_dashboard_widgets('right-4'); ?>
 
                 <!-- Mingrow AI — Coming Soon -->
                 <div class="ai-coming-soon-card">
@@ -616,18 +547,29 @@ function parse_activity_item($description) {
                     <button class="ai-coming-btn" disabled>Explore AI Assistant</button>
                 </div>
             </div>
+
+            <div class="clearfix"></div>
+
+            <div class="col-md-4" data-container="bottom-left-4">
+                <?php render_dashboard_widgets('bottom-left-4'); ?>
+            </div>
+            <div class="col-md-4" data-container="bottom-middle-4">
+                <?php render_dashboard_widgets('bottom-middle-4'); ?>
+            </div>
+            <div class="col-md-4" data-container="bottom-right-4">
+                <?php render_dashboard_widgets('bottom-right-4'); ?>
+            </div>
+
+            <?php hooks()->do_action('after_dashboard'); ?>
         </div>
-
-        <?php hooks()->do_action('after_dashboard'); ?>
-    </div><!-- /.content -->
-</div><!-- /#wrapper -->
-
+    </div>
+</div>
 <script>
     app.calendarIDs = '<?= json_encode($google_ids_calendars); ?>';
 </script>
-
 <?php init_tail(); ?>
 <?php $this->load->view('admin/utilities/calendar_template'); ?>
 <?php $this->load->view('admin/dashboard/dashboard_js'); ?>
 </body>
+
 </html>

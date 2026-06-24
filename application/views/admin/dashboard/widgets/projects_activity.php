@@ -20,7 +20,7 @@
 
             <hr class="-tw-mx-3 tw-mt-3 tw-mb-6">
 
-            <div class="activity-feed">
+            <div class="mg-timeline tw-mt-4">
                 <?php
                     foreach ($projects_activity as $activity) {
                         $name = e($activity['fullname']);
@@ -32,30 +32,34 @@
                         } else {
                             $href = '';
                             $name = '[CRON]';
-                        } ?>
-                <div class="feed-item">
-                    <div class="date"><span class="text-has-action" data-toggle="tooltip"
+                        } 
+                        $parsed = parse_activity_item($activity['description']);
+                        ?>
+                <div class="mg-tl-item">
+                    <div class="mg-tl-dot <?php echo $parsed['class']; ?>"></div>
+                    <div class="mg-tl-time">
+                        <span class="text-has-action" data-toggle="tooltip"
                             data-title="<?php echo e(_dt($activity['dateadded'])); ?>">
                             <?php echo e(time_ago($activity['dateadded'])); ?>
                         </span>
                     </div>
-                    <div class="text">
+                    <div class="mg-tl-text">
                         <p class="bold no-mbot">
                             <?php if ($href != '') { ?>
                             <a href="<?php echo e($href); ?>"><?php echo $name; ?></a> -
                             <?php } else {
                                 echo $name;
                             } ?>
-                            <?php echo e($activity['description']); ?>
+                            <?php echo $parsed['text']; ?>
                         </p>
                         <?php echo _l('project_name'); ?>: <a
                             href="<?php echo admin_url('projects/view/' . $activity['project_id']); ?>">
                             <?php echo e($activity['project_name']); ?>
                         </a>
+                        <?php if (!empty($activity['additional_data'])) { ?>
+                            <p class="text-muted mtop5"><?php echo $activity['additional_data']; ?></p>
+                        <?php } ?>
                     </div>
-                    <?php if (!empty($activity['additional_data'])) { ?>
-                        <p class="text-muted mtop5"><?php echo $activity['additional_data']; ?></p>
-                    <?php } ?>
                 </div>
                 <?php } ?>
             </div>
