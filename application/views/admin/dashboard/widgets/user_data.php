@@ -135,21 +135,18 @@
                     <a href="<?php echo admin_url('utilities/activity_log'); ?>"
                         class="mbot20 inline-block full-width"><?php echo _l('home_widget_view_all'); ?></a>
                     <div class="clearfix"></div>
-                    <div class="mg-timeline tw-mt-4">
-                        <?php foreach ($activity_log as $log) {
-                            $parsed = parse_activity_item($log['description']);
-                        ?>
-                        <div class="mg-tl-item">
-                            <div class="mg-tl-dot <?php echo $parsed['class']; ?>"></div>
-                            <div class="mg-tl-time">
+                    <div class="activity-feed">
+                        <?php foreach ($activity_log as $log) { ?>
+                        <div class="feed-item">
+                            <div class="date">
                                 <span class="text-has-action" data-toggle="tooltip"
                                     data-title="<?php echo e(_dt($log['date'])); ?>">
                                     <?php echo e(time_ago($log['date'])); ?>
                                 </span>
                             </div>
-                            <div class="mg-tl-text">
-                                <?php if($log['staffid'] != 0) { echo get_staff_full_name($log['staffid']) . ' - '; } ?>
-                                <?php echo $parsed['text']; ?>
+                            <div class="text">
+                                <?php echo e($log['staffid']); ?><br />
+                                <?php echo e($log['description']); ?>
                             </div>
                         </div>
                         <?php } ?>
