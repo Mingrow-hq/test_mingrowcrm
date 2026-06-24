@@ -110,6 +110,13 @@ class Credit_notes_model extends App_Model
                             'type'       => 'application/pdf',
                         ]);
                     }
+
+                    hooks()->do_action('before_credit_note_sent_to_client', [
+                        'credit_note' => $credit_note,
+                        'contact' => $contact,
+                        'template' => $template,
+                    ]);
+
                     if ($template->send()) {
                         $sent = true;
                     }
@@ -370,12 +377,6 @@ class Credit_notes_model extends App_Model
         $attachment = $this->misc_model->get_file($id);
 
         $deleted = false;
-$deleted = hooks()->apply_filters('aws_delete_attachment', ['attachment' => $attachment, 'activity_log' => 'Credit Note Attachment Deleted [Credite Note: ' . format_credit_note_number($attachment->rel_id) . ']']);
-
-
-
-
-
         if ($attachment) {
             if (empty($attachment->external)) {
                 unlink(get_upload_path_by_type('credit_note') . $attachment->rel_id . '/' . $attachment->file_name);

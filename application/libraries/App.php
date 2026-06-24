@@ -96,28 +96,15 @@ class App
     }
 
     public function get_settings_sections()
-{
-    $sections = app_sort_by_position($this->settingsSections);
+    {
+        $sections = app_sort_by_position($this->settingsSections);
 
-    if (!is_array($sections)) {
-        return [];
-    }
-
-    foreach ($sections as $key => $section) {
-
-        if (
-            !isset($section['children']) ||
-            !is_array($section['children'])
-        ) {
-            $sections[$key]['children'] = [];
-            continue;
+        foreach ($sections as $key => $section) {
+            $sections[$key]['children'] = app_sort_by_position($section['children']);
         }
 
-        $sections[$key]['children'] = app_sort_by_position($section['children']);
+        return $sections;
     }
-
-    return $sections;
-}
 
     public function add_settings_section($id, $data)
     {

@@ -1280,12 +1280,6 @@ class Clients_model extends App_Model
         $this->db->where('id', $id);
         $attachment = $this->db->get(db_prefix() . 'files')->row();
         $deleted    = false;
-$deleted = hooks()->do_action('aws_delete_client_attachment', $attachment);
-
-
-
-
-
         if ($attachment) {
             if (empty($attachment->external)) {
                 $relPath  = get_upload_path_by_type('customer') . $attachment->rel_id . '/';

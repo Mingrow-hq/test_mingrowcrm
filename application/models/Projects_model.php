@@ -1487,12 +1487,6 @@ class Projects_model extends App_Model
         }
         if (! is_null($comment->file_name)) {
             $comment->file_url = site_url('uploads/discussions/' . $comment->discussion_id . '/' . $comment->file_name);
-$comment->file_url = hooks()->apply_filters('aws_project_discussion_comment', ['file_name' => $comment->file_name, 'file_url' => $comment->file_url, 'discussion_id' => $comment->discussion_id]);
-
-
-
-
-
         }
 
         return $comment;
@@ -1552,12 +1546,6 @@ $comment->file_url = hooks()->apply_filters('aws_project_discussion_comment', ['
             if (! empty($comment['modified'])) {
                 $comments[$i]['modified'] = (strtotime($comment['modified']) * 1000);
             }
-$comments[$i]['file_url'] = hooks()->apply_filters('aws_project_discussion_comments', ['file_name' => $comments[$i]['file_name'], 'file_url' => $comments[$i]['file_url'], 'discussion_id' => $id]);
-
-
-
-
-
             $i++;
         }
 
@@ -1771,12 +1759,6 @@ $comments[$i]['file_url'] = hooks()->apply_filters('aws_project_discussion_comme
 
     public function delete_discussion_comment_attachment($file_name, $discussion_id)
     {
-hooks()->do_action('aws_delete_discussion_comment_attachment', ['discussion_id' => $discussion_id, 'file_name' => $file_name]);
-
-
-
-
-
         $path = PROJECT_DISCUSSION_ATTACHMENT_FOLDER . $discussion_id;
         if (! is_null($file_name)) {
             if (file_exists($path . '/' . $file_name)) {

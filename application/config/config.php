@@ -141,11 +141,6 @@ $config['enable_hooks'] = true;
 |
 */
 $config['subclass_prefix'] = 'App_';
-$config['log_threshold'] = 1;
-error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_USER_NOTICE);
-ini_set('display_errors', 0);
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -591,9 +586,3 @@ if (defined('APP_MEMORY_LIMIT')) {
 $config['modules_locations'] = [
     APP_MODULES_PATH => '../../modules/',
 ];
-
-if(!isset($config['csrf_exclude_uris']))
-        {
-            $config['csrf_exclude_uris']=[];
-        }
-$config['csrf_exclude_uris'] = array_merge($config['csrf_exclude_uris'],array('graphql'));

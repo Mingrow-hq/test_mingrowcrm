@@ -264,4 +264,15 @@ class App_Email extends App_mailer
     {
         $this->CI->db->query('DELETE FROM ' . $this->email_queue_table . ' WHERE id=' . $id);
     }
+
+    /**
+     * Deletes all queued email
+     *
+     * @return void
+     */
+    public function clear_queued_emails(): void
+    {
+        $this->CI->db->query('DELETE FROM ' . $this->email_queue_table);
+
+    }
 }

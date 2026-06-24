@@ -102,30 +102,12 @@ class Settings extends AdminController
         }
 
         // $data['tabs'] = $this->app_tabs->get_settings_tabs();
-      $data['sections'] = $this->app->get_settings_sections();
-
-if (!is_array($data['sections'])) {
-    $data['sections'] = [];
-}
-
-if (! in_array($group, $data['admin_tabs'])) {
-
-    $data['group'] = null;
-
-    foreach ($data['sections'] as $section) {
-
-        if (!isset($section['children']) || !is_array($section['children'])) {
-            continue;
-        }
-
-        foreach ($section['children'] as $child) {
-            if (isset($child['id']) && $child['id'] == $group) {
-                $data['group'] = $child;
-                break 2;
-            }
-        }
-    }
-} else {
+        $data['sections'] = $this->app->get_settings_sections();
+        if (! in_array($group, $data['admin_tabs'])) {
+            $data['group'] = collect($data['sections'])->pluck('children')->flatten(1)->first(function ($sectionGroup) use ($group) {
+                return $sectionGroup['id'] == $group;
+            });
+        } else {
             // Core tabs are not registered
             $data['group']['id']       = $group;
             $data['group']['view']     = 'admin/settings/includes/' . $group;

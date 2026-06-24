@@ -667,6 +667,10 @@ class Clients extends AdminController
     /* Change client status / active / inactive */
     public function change_client_status($id, $status)
     {
+        if (staff_cant('edit',  'customers') && !is_customer_admin(get_user_id_by_contact_id($id))) {
+            ajax_access_denied();
+        }
+
         if ($this->input->is_ajax_request()) {
             $this->clients_model->change_client_status($id, $status);
         }

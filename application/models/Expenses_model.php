@@ -688,12 +688,6 @@ class Expenses_model extends App_Model
      */
     public function delete_expense_attachment($id)
     {
-hooks()->do_action('aws_delete_expense_attachment', ['attachment' => $id, 'activity_log' => 'Expense Receipt Deleted [ExpenseID: ' . $id . ']']);
-
-
-
-
-
         if (is_dir(get_upload_path_by_type('expense') . $id)) {
             if (delete_dir(get_upload_path_by_type('expense') . $id)) {
                 $this->db->where('rel_id', $id);

@@ -1200,12 +1200,6 @@ class Tasks_model extends App_Model
         // Get the attachment
         $this->db->where('id', $id);
         $attachment = $this->db->get(db_prefix() . 'files')->row();
-$deleted = hooks()->apply_filters('aws_delete_attachment', ['attachment' => $attachment, 'activity_log' => 'Task Attachment Deleted [TaskID: ' . $attachment->rel_id . ']']);
-
-
-
-
-
 
         if ($attachment) {
             if (empty($attachment->external)) {

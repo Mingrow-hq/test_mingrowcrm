@@ -8,8 +8,6 @@ class Staff_event_notification extends App_mail_template
 
     protected $staffid;
 
-    protected $staff; // PHP 8.2 fix
-
     protected $event;
 
     public $slug = 'event-notification-to-staff';
@@ -30,6 +28,6 @@ class Staff_event_notification extends App_mail_template
         $this->set_merge_fields('event_merge_fields', $this->event);
 
         $this->to($this->staff->email)
-             ->set_rel_id($this->staff->staffid);
+        ->set_rel_id($this->staff->staffid);
     }
 }

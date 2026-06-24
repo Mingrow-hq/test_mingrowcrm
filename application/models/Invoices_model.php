@@ -1160,12 +1160,6 @@ class Invoices_model extends App_Model
     {
         $attachment = $this->get_attachments('', $id);
         $deleted    = false;
-$deleted = hooks()->apply_filters('aws_delete_attachment', ['attachment' => $attachment, 'activity_log' => 'Invoice Attachment Deleted [InvoiceID: ' . $attachment->rel_id . ']']);
-
-
-
-
-
         if ($attachment) {
             if (empty($attachment->external)) {
                 unlink(get_upload_path_by_type('invoice') . $attachment->rel_id . '/' . $attachment->file_name);
@@ -1681,6 +1675,12 @@ $deleted = hooks()->apply_filters('aws_delete_attachment', ['attachment' => $att
                             'type'       => 'application/pdf',
                         ]);
                     }
+
+                    hooks()->do_action('before_invoice_sent_to_client', [
+                        'invoice' => $invoice,
+                        'contact' => $contact,
+                        'template' => $template,
+                    ]);
 
                     if ($template->send()) {
                         $sent = true;

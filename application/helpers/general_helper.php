@@ -574,7 +574,6 @@ function get_weekdays_original()
  */
 function _l($line, $label = '', $log_errors = true)
 {
-    $line = (string)$line;
     $CI = &get_instance();
 
     $hook_data = hooks()->apply_filters('before_get_language_text', ['line' => $line, 'label' => $label]);

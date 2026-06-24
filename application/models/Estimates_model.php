@@ -983,12 +983,6 @@ class Estimates_model extends App_Model
     {
         $attachment = $this->get_attachments('', $id);
         $deleted    = false;
-$deleted = hooks()->apply_filters('aws_delete_attachment', ['attachment' => $attachment, 'activity_log' => 'Estimate Attachment Deleted [EstimateID: ' . $attachment->rel_id . ']']);
-
-
-
-
-
         if ($attachment) {
             if (empty($attachment->external)) {
                 unlink(get_upload_path_by_type('estimate') . $attachment->rel_id . '/' . $attachment->file_name);

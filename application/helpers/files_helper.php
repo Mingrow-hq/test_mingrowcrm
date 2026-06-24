@@ -58,26 +58,24 @@ function xcopy($source, $dest, $permissions = 0755)
 function delete_dir($dirPath)
 {
     if (!is_dir($dirPath)) {
-        return false;
+        throw new InvalidArgumentException("$dirPath must be a directory");
     }
-
-    $items = scandir($dirPath);
-
-    foreach ($items as $item) {
-        if ($item == '.' || $item == '..') {
-            continue;
-        }
-
-        $path = $dirPath . DIRECTORY_SEPARATOR . $item;
-
-        if (is_dir($path)) {
-            delete_dir($path);
+    if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+        $dirPath .= '/';
+    }
+    $files = glob($dirPath . '*', GLOB_MARK);
+    foreach ($files as $file) {
+        if (is_dir($file)) {
+            delete_dir($file);
         } else {
-            @unlink($path);
+            unlink($file);
         }
     }
+    if (rmdir($dirPath)) {
+        return true;
+    }
 
-    return @rmdir($dirPath);
+    return false;
 }
 /**
  * Is file image

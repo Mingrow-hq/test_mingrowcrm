@@ -32,7 +32,7 @@ define('APP_BASE_URL_DEFAULT', 'https://test.mingrow.cloud/');
 *
 * Auto added on install
 */
-define('APP_ENC_KEY', '95540ba54c4010637cd9b5fcbae2f882');
+define('APP_ENC_KEY', 'b71a67e521ef91be51460d1a280278c4');
 
 /**
  * Database Credentials
@@ -43,17 +43,17 @@ define('APP_DB_HOSTNAME_DEFAULT', 'localhost');
 /**
  * The username used to connect to the database
  */
-define('APP_DB_USERNAME_DEFAULT', 'mingrow-user');
+define('APP_DB_USERNAME_DEFAULT', 'mingrow-test');
 
 /**
  * The password used to connect to the database
  */
-define('APP_DB_PASSWORD_DEFAULT', 'Sidd#Tanweer@2026');
+define('APP_DB_PASSWORD_DEFAULT', 'Test@Mingrow#2026');
 
 /**
  * The name of the database you want to connect to
  */
-define('APP_DB_NAME_DEFAULT', 'mingrow-app');
+define('APP_DB_NAME_DEFAULT', 'mingrow-test');
 
 /**
  * @since  2.3.0

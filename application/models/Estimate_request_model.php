@@ -431,12 +431,6 @@ class Estimate_request_model extends App_Model
     {
         $attachment = $this->get_estimate_request_attachments('', $id);
         $deleted    = false;
-$deleted = hooks()->apply_filters('aws_delete_attachment', ['attachment' => $attachment, 'activity_log' => 'Estimate Request Attachment Deleted [ID: ' . $attachment->rel_id . ']']);
-
-
-
-
-
 
         if ($attachment) {
             if (empty($attachment->external)) {

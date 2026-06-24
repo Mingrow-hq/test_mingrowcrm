@@ -656,12 +656,6 @@ class Tickets_model extends App_Model
         $deleted = false;
         $this->db->where('id', $id);
         $attachment = $this->db->get(db_prefix() . 'ticket_attachments')->row();
-$deleted = hooks()->apply_filters('aws_delete_ticket_attachment', $attachment);
-
-
-
-
-
         if ($attachment) {
             if (unlink(get_upload_path_by_type('ticket') . $attachment->ticketid . '/' . $attachment->file_name)) {
                 $this->db->where('id', $attachment->id);
