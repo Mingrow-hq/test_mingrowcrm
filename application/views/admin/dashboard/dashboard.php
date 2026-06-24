@@ -7,7 +7,7 @@ $total_companies = 0;
 $total_subscriptions = 0;
 $invoices_total = ['overdue' => 0, 'due' => 0, 'paid' => 0, 'currency' => null];
 
-if (function_exists('perfex_saas_table')) {
+if (function_exists('perfex_saas_table') && function_exists('perfex_saas_column') && isset($CI->perfex_saas_model)) {
     $total_packages = $CI->db->count_all_results(perfex_saas_table('packages'));
     $total_companies = $CI->db->count_all_results(perfex_saas_table('companies'));
     $total_subscriptions = $CI->db->where(perfex_saas_column('packageid') . ' >', 0)->count_all_results(db_prefix() . 'invoices');
@@ -950,7 +950,11 @@ body, #wrapper {
         <div class="row mbot20">
             <div class="col-md-12 tw-flex tw-justify-between tw-items-center tw-flex-wrap">
                 <div>
-                    <h1 class="welcome-title tw-text-2xl tw-font-bold">Good Morning, <?php echo get_staff_first_name(get_staff_user_id()); ?> 👋</h1>
+                    <h1 class="welcome-title tw-text-2xl tw-font-bold">Good Morning, <?php 
+                        $full_name = get_staff_full_name(get_staff_user_id());
+                        $first_name = explode(' ', $full_name)[0];
+                        echo e($first_name); 
+                    ?> 👋</h1>
                     <p class="welcome-subtitle tw-text-sm">Here's what's happening in your business today.</p>
                 </div>
                 <div class="date-picker-container tw-mt-2 sm:tw-mt-0">
