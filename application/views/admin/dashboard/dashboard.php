@@ -22,7 +22,6 @@ body {
     transition: transform 0.2s ease, box-shadow 0.2s ease !important;
     overflow: hidden !important;
     margin-bottom: 24px !important;
-    position: relative;
 }
 .panel_s:hover {
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.04) !important;
@@ -30,7 +29,6 @@ body {
 }
 .panel-body {
     padding: 24px !important;
-    position: relative;
 }
 .panel-heading, .panel-body > p.tw-font-semibold {
     background: transparent !important;
@@ -43,38 +41,6 @@ body {
     display: flex !important;
     align-items: center;
     margin: -24px -24px 24px -24px !important;
-}
-
-/* Visual Drag Handle */
-.widget {
-    position: relative;
-}
-.widget-dragger {
-    z-index: 50 !important;
-    cursor: grab !important;
-}
-.widget-dragger:active {
-    cursor: grabbing !important;
-}
-.widget-dragger::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 32px;
-    height: 12px;
-    background-image: radial-gradient(circle, #CBD5E1 1.5px, transparent 2px);
-    background-size: 6px 6px;
-    background-position: center;
-    background-repeat: repeat;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    pointer-events: none;
-    border-radius: 4px;
-}
-.widget:hover .widget-dragger::before, .panel_s:hover .widget-dragger::before {
-    opacity: 1;
 }
 
 /* Typography & Colors */
@@ -121,7 +87,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 4px !important;
 }
 .top_stats_wrapper svg {
-    background: #F4EFFF !important;
+    background: #F4EFFF !important; /* Soft purple bg */
     color: #6D28FF !important;
     padding: 10px !important;
     border-radius: 12px !important;
@@ -131,6 +97,52 @@ h1, h2, h3, h4, h5, h6 {
     right: 24px;
     top: 24px;
     margin: 0 !important;
+}
+
+/* Drag Handles */
+.widget, .panel_s, .panel-body {
+    position: relative;
+}
+.widget-dragger {
+    position: absolute !important;
+    top: 16px !important;
+    left: 12px !important;
+    color: #cbd5e1 !important;
+    cursor: grab !important;
+    z-index: 50 !important;
+    width: 28px;
+    height: 28px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: transparent;
+    transition: all 0.2s ease !important;
+    opacity: 0.5;
+}
+.widget-dragger::before {
+    content: "\f58e" !important; /* FontAwesome grip-vertical */
+    font-family: "Font Awesome 6 Free", "FontAwesome" !important;
+    font-weight: 900;
+    font-size: 16px;
+}
+.widget:hover .widget-dragger, .panel_s:hover .widget-dragger {
+    opacity: 1;
+    color: #94a3b8 !important;
+}
+.widget-dragger:hover {
+    color: #6D28FF !important;
+    background: rgba(109, 40, 255, 0.1) !important;
+}
+.widget-dragger:active {
+    cursor: grabbing !important;
+}
+/* Ensure the text doesn't overlap the dragger */
+.panel-heading, .panel-body > p.tw-font-semibold {
+    padding-left: 44px !important;
+}
+.top_stats_wrapper {
+    padding-left: 40px !important;
 }
 
 /* Constrain Payment Records / Chart Heights */
