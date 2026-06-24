@@ -221,91 +221,38 @@ function init_weekly_payment_statistics(data) {
         if (typeof(weekly_payments_statistics) !== 'undefined') {
             weekly_payments_statistics.destroy();
         }
-
-        var modernChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: true,
-                position: 'top',
-                labels: {
-                    fontFamily: "'Inter', sans-serif",
-                    fontColor: '#475569',
-                    fontSize: 12,
-                    boxWidth: 12,
-                    padding: 16
-                }
-            },
-            scales: {
-                xAxes: [{
-                    gridLines: {
-                        display: false
-                    },
-                    ticks: {
-                        fontFamily: "'Inter', sans-serif",
-                        fontColor: '#64748B',
-                        fontSize: 11
-                    }
-                }],
-                yAxes: [{
-                    gridLines: {
-                        color: 'rgba(124, 58, 237, 0.05)',
-                        zeroLineColor: 'rgba(124, 58, 237, 0.05)'
-                    },
-                    ticks: {
-                        beginAtZero: true,
-                        fontFamily: "'Inter', sans-serif",
-                        fontColor: '#64748B',
-                        fontSize: 11
-                    }
-                }]
-            },
-            tooltips: {
-                backgroundColor: '#1E1B4B',
-                titleFontFamily: "'Inter', sans-serif",
-                titleFontSize: 12,
-                bodyFontFamily: "'Inter', sans-serif",
-                bodyFontSize: 12,
-                xPadding: 12,
-                yPadding: 12,
-                cornerRadius: 8,
-                displayColors: false
-            }
-        };
-
-        var processData = function(res) {
-            if (res && res.datasets) {
-                res.datasets.forEach(function(ds, idx) {
-                    if (idx === 0) {
-                        ds.backgroundColor = '#6D28FF';
-                        ds.hoverBackgroundColor = '#7C3AED';
-                        ds.borderColor = '#6D28FF';
-                    } else {
-                        ds.backgroundColor = '#A855F7';
-                        ds.hoverBackgroundColor = '#C084FC';
-                        ds.borderColor = '#A855F7';
-                    }
-                    ds.borderWidth = 0;
-                });
-            }
-            return res;
-        };
-
         if (typeof(data) == 'undefined') {
             var currency = $('select[name="currency"]').val();
             $.get(admin_url + 'dashboard/weekly_payments_statistics/' + currency, function(response) {
                 weekly_payments_statistics = new Chart($('#payment-statistics'), {
                     type: 'bar',
-                    data: processData(response),
-                    options: modernChartOptions,
+                    data: response,
+                    options: {
+                        responsive: true,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                }
+                            }]
+                        },
+                    },
                 });
             }, 'json');
         } else {
-            var formattedData = JSON.parse(JSON.stringify(data));
             weekly_payments_statistics = new Chart($('#payment-statistics'), {
                 type: 'bar',
-                data: processData(formattedData),
-                options: modernChartOptions,
+                data: data,
+                options: {
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                            }
+                        }]
+                    },
+                },
             });
         }
 
@@ -319,81 +266,21 @@ function init_monthly_payment_statistics() {
             monthly_payments_statistics.destroy();
         }
 
-        var modernChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: true,
-                position: 'top',
-                labels: {
-                    fontFamily: "'Inter', sans-serif",
-                    fontColor: '#475569',
-                    fontSize: 12,
-                    boxWidth: 12,
-                    padding: 16
-                }
-            },
-            scales: {
-                xAxes: [{
-                    gridLines: {
-                        display: false
-                    },
-                    ticks: {
-                        fontFamily: "'Inter', sans-serif",
-                        fontColor: '#64748B',
-                        fontSize: 11
-                    }
-                }],
-                yAxes: [{
-                    gridLines: {
-                        color: 'rgba(124, 58, 237, 0.05)',
-                        zeroLineColor: 'rgba(124, 58, 237, 0.05)'
-                    },
-                    ticks: {
-                        beginAtZero: true,
-                        fontFamily: "'Inter', sans-serif",
-                        fontColor: '#64748B',
-                        fontSize: 11
-                    }
-                }]
-            },
-            tooltips: {
-                backgroundColor: '#1E1B4B',
-                titleFontFamily: "'Inter', sans-serif",
-                titleFontSize: 12,
-                bodyFontFamily: "'Inter', sans-serif",
-                bodyFontSize: 12,
-                xPadding: 12,
-                yPadding: 12,
-                cornerRadius: 8,
-                displayColors: false
-            }
-        };
-
-        var processData = function(res) {
-            if (res && res.datasets) {
-                res.datasets.forEach(function(ds, idx) {
-                    if (idx === 0) {
-                        ds.backgroundColor = '#6D28FF';
-                        ds.hoverBackgroundColor = '#7C3AED';
-                        ds.borderColor = '#6D28FF';
-                    } else {
-                        ds.backgroundColor = '#A855F7';
-                        ds.hoverBackgroundColor = '#C084FC';
-                        ds.borderColor = '#A855F7';
-                    }
-                    ds.borderWidth = 0;
-                });
-            }
-            return res;
-        };
-
         var currency = $('select[name="currency"]').val();
         $.get(admin_url + 'dashboard/monthly_payments_statistics/' + currency, function(response) {
             monthly_payments_statistics = new Chart($('#payment-statistics'), {
                 type: 'bar',
-                data: processData(response),
-                options: modernChartOptions,
+                data: response,
+                options: {
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                            }
+                        }]
+                    },
+                },
             });
         }, 'json');
     }
