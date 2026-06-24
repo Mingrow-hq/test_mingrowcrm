@@ -22,6 +22,7 @@ body {
     transition: transform 0.2s ease, box-shadow 0.2s ease !important;
     overflow: hidden !important;
     margin-bottom: 24px !important;
+    position: relative;
 }
 .panel_s:hover {
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.04) !important;
@@ -29,6 +30,7 @@ body {
 }
 .panel-body {
     padding: 24px !important;
+    position: relative;
 }
 .panel-heading, .panel-body > p.tw-font-semibold {
     background: transparent !important;
@@ -41,6 +43,38 @@ body {
     display: flex !important;
     align-items: center;
     margin: -24px -24px 24px -24px !important;
+}
+
+/* Visual Drag Handle */
+.widget {
+    position: relative;
+}
+.widget-dragger {
+    z-index: 50 !important;
+    cursor: grab !important;
+}
+.widget-dragger:active {
+    cursor: grabbing !important;
+}
+.widget-dragger::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 32px;
+    height: 12px;
+    background-image: radial-gradient(circle, #CBD5E1 1.5px, transparent 2px);
+    background-size: 6px 6px;
+    background-position: center;
+    background-repeat: repeat;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    border-radius: 4px;
+}
+.widget:hover .widget-dragger::before, .panel_s:hover .widget-dragger::before {
+    opacity: 1;
 }
 
 /* Typography & Colors */
@@ -87,7 +121,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 4px !important;
 }
 .top_stats_wrapper svg {
-    background: #F4EFFF !important; /* Soft purple bg */
+    background: #F4EFFF !important;
     color: #6D28FF !important;
     padding: 10px !important;
     border-radius: 12px !important;
